@@ -1,4 +1,4 @@
-import { checkAuth, deleteBunny, getFamilies, logout } from '../fetch-utils.js';
+import { checkAuth, getFamilies, logout } from '../fetch-utils.js';
 import { renderFamilies } from '../render-utils.js';
 
 checkAuth();
@@ -9,31 +9,17 @@ const logoutButton = document.getElementById('logout');
 logoutButton.addEventListener('click', () => {
     logout();
 });
-async function displayFamilies() {
-    const main = document.querySelector('main');
-    main.textContent = ' ';
+export async function displayFamilies() {
+    familiesEl.textContent = ' ';
     const data = await getFamilies();
 
     for (let family of data) {
-        const famEl = renderFamilies(family);
+        const famEl = await renderFamilies(family);
 
-
-        const ul = document.createElement('ul');
-        for (let bunny of family.fuzzy_bunnies) {
-            const li = document.createElement('li');
-            li.textContent = `${bunny.name}`;
-            li.addEventListener('click', async () => {
-                famEl;
-                await deleteBunny(bunny.id);
-                await displayFamilies();
-            });
-            ul.append(li);
-        }
     // fetch families from supabase
     // clear out the familiesEl
 
-        familiesEl.append(ul);
-        main.append(familiesEl);
+        familiesEl.append(famEl);
         // add the bunnies css class to the bunnies el, and family css class to the family el
         // put the family name in the name element
         // for each of this family's bunnies
