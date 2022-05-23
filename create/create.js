@@ -12,8 +12,8 @@ form.addEventListener('submit', async (e) => {
     const bunnyform = new FormData(form);
     // get the name and family id from the form
     await createBunny({
-        name: bunnyform.get('name'),
-        family_id: bunnyform.get('family_id'),
+        name: bunnyform.get('bunny-name'),
+        family_id: bunnyform.get('family-id'),
     });
 
     // use createBunny to create a bunny with this name and family id
