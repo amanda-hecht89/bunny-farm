@@ -17,17 +17,17 @@ function displayFamilies() {
         const familiesEl = renderFamilies(family);
     }
     // fetch families from supabase
+    const ul = document.createElement('ul');
     // clear out the familiesEl
-    for (let family of families) {
-        // create three elements for each family, one for the whole family, one to hold the name, and one to hold the bunnies
-        // your HTML Element should look like this:
-        // <div class="family">
-        //    <h3>the Garcia family</h3>
-        //    <div class="bunnies">
-        //        <div class="bunny">Fluffy</div>
-        //        <div class="bunny">Bob</div>
-        //    </div>
-        // </div>
+    for (let family of loving_families.families) {
+        const li = document.createElement('li');
+        li.textContent = `${fuzzy_bunnies.name}`;
+        li.addEventListener('click', async () => {
+            await deleteBunny(fuzzy_bunnies.id);
+            displayFamilies();
+        });
+        ul.append(li)
+
         // add the bunnies css class to the bunnies el, and family css class to the family el
         // put the family name in the name element
         // for each of this family's bunnies
@@ -37,7 +37,8 @@ function displayFamilies() {
     }
 
     // append the bunniesEl and nameEl to the familyEl
-
+familiesEl.append(ul);
+main.append(familiesEl);
     // append the familyEl to the familiesEl
 }
 displayFamilies();
